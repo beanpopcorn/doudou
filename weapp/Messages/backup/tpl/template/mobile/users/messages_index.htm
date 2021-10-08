@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>站内通知-{eyou:global name='web_name' /}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <link href="{eyou:global name='web_cmspath'/}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eyou:static file="users/skin/css/bootstrap.min.css"/}
+    {eyou:static file="users/skin/css/basic.css"/}
+    {eyou:static file="users/skin/css/eyoucms.css"/}
+    {eyou:static file="users/skin/css/shop.css"/}
+    {eyou:static  file="users/skin/css/tb_style.css"/}
+    {eyou:include file="users/skin/css/diy_css.htm"/}
+    
+    {eyou:static file="/public/static/common/js/jquery.min.js"/}
+    {eyou:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+    {eyou:static file="/public/static/common/js/tag_global.js"/}
+<style>
+.layui-layer-content {color: black;margin: 0px 20px;font-size: 0.9em;margin: 20px 0px;position: relative;}
+</style>
+</head>
+
+<body class="centre shop">
+<!-- 头部 -->
+{eyou:include file="users/users_header.htm" /}
+<!-- END -->
+<div class="member-profile ey-member">
+    <div class="container">
+        <div class="member-profile-content">
+            <div class="row">
+                <!-- 侧边 -->
+                {eyou:include file="users/users_left.htm" /}
+                <!-- END -->
+                <!-- 中部 -->
+                <div class="col-xs-12 col-sm-10 ey-member-safety" >
+                    <div class="panel m-b-0">
+                        <div class="panel-body ey-member-index ey-member-profile">
+                            <div class="panel panel-default m-b-0 basic">
+                                 <!-- 顶部导航栏 -->
+                                <div class="panel-heading">
+                                    <strong style="width: auto;text-align: left;padding-right: 10px;">站内通知</strong>
+                                </div>
+                                <!-- END -->  
+                                <div class="tb-body">
+                                    <table class="table" style="word-break:break-all;word-wrap:break-word;margin-top: 10px;">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-sm-6 tl" style="padding: 8px 4px;width: 29%;">标题</th>
+												<th class="col-sm-2" style="width: 5%!important;padding: 8px 4px;">发送人</th>
+												<th class="col-sm-2" style="width: 10%!important;padding: 8px 4px;">发送时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {empty name="$list"}
+                                            <tr class="trSelected">
+                                                <td class="no-data" align="center" axis="col0" colspan="50">
+                                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                                                </td>
+                                            </tr>
+                                        {else/}
+                                            {eyou:volist name="$list" id="vo"}    
+                                            <tr class="accordion" style="cursor: pointer;">
+                                                <td class="col-sm-6 col-xs-8 txt tl td-state" style="width: 29%;padding: 8px 4px;">
+                                                    {$vo.title}
+                                                </td>
+												
+												<td class="col-sm-1 td-state" style="width: 5%!important;padding: 8px 4px;">
+                                                    管理员
+                                                </td>
+												<td class="col-sm-1 td-state" style="width: 10%!important;padding: 8px 4px;">
+                                                    {$vo.add_time|date='Y-m-d H:i',###}
+                                                </td>
+											</tr>
+											<tr class="accordion-desc " style="background-color: rgb(58, 58, 58);position: absolute;width: 98%;">
+											    <td style="width: 100%;padding: 8px 4px;border: 0;color: #fff;text-align: left;">
+                                                    {$vo.remark}
+                                                </td>
+											</tr>
+                                            <tr class="wap accordion">
+											    <td class="col-sm-1 td-state-m" style="float: left;width: 100%!important;padding: 8px 4px;">
+                                                    {$vo.title}
+													<p style="margin: 0;">发送时间：{$vo.add_time|date='Y-m-d H:i',###}</p>
+                                                </td>
+                                            </tr>
+											<tr class="accordion-desc wap" style="display: none;background-color: rgb(58, 58, 58);position: absolute;width: 98%;">
+											    <td style="width: 100%;padding: 8px 4px;border: 0;color: #fff;text-align: left;">
+                                                    {$vo.remark}
+                                                </td>
+											</tr>
+											
+                                            {/eyou:volist}
+                                        {/empty}
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                            <div style="text-align: center;">{$page}</div>
+                        </div>
+                    </div>
+                <!-- END -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+     $(".accordion-desc").fadeOut(0);
+     $(".accordion").click(function() {
+          $(".accordion-desc").not($(this).next()).slideUp('fast');
+          $(this).next().slideToggle(400);
+     });
+});
+
+</script>
+{eyou:include file="users/users_footer.htm" /}
+<!-- END -->

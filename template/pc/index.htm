@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--首页seo标题-->
+		<title>{eyou:global name='web_title' /}</title>
+		<!--首页seo描述-->
+		<meta name="description" content="{eyou:global name='web_description' /}" />
+		<!--首页seo关键词-->
+		<meta name="keywords" content="{eyou:global name='web_keywords' /}" />
+		<!--网站地址栏图标-->
+		<link href="{eyou:global name='web_ico' /}" rel="shortcut icon" type="image/x-icon" />
+		<link media="screen and (min-width:768px)" rel="stylesheet" type="text/css" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/css.css">
+		<link media="screen and (max-width:768px)" rel="stylesheet" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/mobile.css">
+		{eyou:static file="skin/Lib/font-awesome/css/font-awesome.min.css" /}
+	</head>
+
+	<body>
+		<!--header——开始-->
+		{eyou:include file="header.htm" /}
+		<!--header——结束-->
+
+		<div class="page">
+			<div class="banner">
+				<div class="banner_pic">
+					<img src="{eyou:global name='web_attr_21' /}">
+				</div>
+				<div class="banner_content">
+					<div class="banner_box">
+						<img class="banner_slide" src="{eyou:global name='web_attr_22' /}">
+						<h2 class="banner_title">Doudou's Blog</h2>
+						<div class="banner_cc">
+							<div class="banner_cc_box">
+								<p>{eyou:global name='web_attr_23' /}</p>
+								<div class="banner_cc_list">
+									<li>
+										<a href="" class="blue" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/qq.png"></a>
+									</li>
+									<li>
+										<a href="" class="blue" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/github.png"></a>
+									</li>
+									<li>
+										<a href="" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/jianshu.png"></a>
+									</li>
+									<li>
+										<a href="" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/zhihu.png"></a>
+									</li>
+									<li>
+										<a href="" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/bilibili.png"></a>
+									</li>
+									<li>
+										<a href=""  class="blue" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/email.png"></a>
+									</li>
+									<li>
+										<a href="" target="_blank"><img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/rss.png"></a>
+									</li>
+								</div>
+							</div>
+						</div>
+						<a class="banner_arrow"></a>
+					</div>
+				</div>
+			</div>
+			<div class="main">
+				<div class="main_list">
+					<!-- 公告栏 -->
+					<div class="notice">
+						<i class="fa fa-volume-up"></i>
+						<div class="notice_content">{eyou:global name='web_attr_24' /}</div>
+					</div>
+
+					<!-- 热门文章 -->
+					<div class="hot_list">
+						<h1 class="hot_title">热门文章</h1>
+						<div class="hot_article">
+							{eyou:arclist typeid='69' row='3' flag='c' }
+							<div class="hot_article_item">
+								<div class="hot_article_box">
+									<a href="{$field.arcurl}">
+										<div class="hot_article_pic">
+											<img src="{$field.litpic}">
+										</div>
+										<div class="hot_article_info">
+											<h3>{$field.title}</h3>
+											<p>{$field.typename}</p>
+										</div>
+									</a>
+								</div>
+							</div>
+							{/eyou:arclist}
+						</div>
+					</div>
+
+					<!-- 最新文章 -->
+					<div class="ns">
+						<h1 class="ns_title">最新文章</h1>
+						<div class="ns_article">
+							{eyou:arclist typeid='69' row='10' addfields='article_content'}
+							<div class="ns_article_item">
+								<div class="ns_article_pic">
+									<a href="{$field.arcurl}">
+										<img src="{$field.litpic}">
+									</a>
+								</div>
+								<div class="ns_article_content">
+									<div class="ns_article_date">
+										<span>{$field.add_time|MyDate='Y-m-d',###}</span>
+									</div>
+									<a class="ns_article_title" href="{$field.arcurl}">
+										<h3>{$field.title}</h3>
+									</a>
+									<div class="ns_article_meta">
+										<span class="ns_article_count">{$field.click} 热度</span>
+										<span class="ns_article_tag">
+											{eyou:tag getall='0' aid='$field.aid' id='field2'}
+											<a href='{$field2.link}'>{$field2.tag}</a>
+											{/eyou:tag}
+										</span>
+										<span class="ns_article_catname">
+											<a href="{$field.typeurl}">{$field.typename}</a>
+										</span>
+									</div>
+									<div class="ns_article_summary">
+										<p>{$field.seo_description|html_msubstr=###,0,120,true}</p>
+									</div>
+								</div>
+								<div class="ns_article_bottom">
+									<a class="ns_article_more" href="{$field.arcurl}">...</a>
+								</div>
+							</div>
+							{/eyou:arclist}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--网站公用底部——开始-->
+		{eyou:include file="footer.htm" /}
+		<!--网站公用底部——结束-->
+	</body>
+</html>

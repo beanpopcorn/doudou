@@ -1,0 +1,5 @@
+application/common/model/Label.php
+application/home/controller/Label.php
+application/home/model/Label.php
+template/pc/lists_label.htm
+template/pc/view_label.htm

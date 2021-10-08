@@ -1,0 +1,5 @@
+application/common/model/Photos.php
+application/home/controller/Photos.php
+application/home/model/Photos.php
+template/pc/lists_photos.htm
+template/pc/view_photos.htm

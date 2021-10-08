@@ -1,0 +1,5 @@
+application/common/model/Taste.php
+application/home/controller/Taste.php
+application/home/model/Taste.php
+template/pc/lists_taste.htm
+template/pc/view_taste.htm

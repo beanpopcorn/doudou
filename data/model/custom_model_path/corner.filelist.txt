@@ -1,0 +1,5 @@
+application/common/model/Corner.php
+application/home/controller/Corner.php
+application/home/model/Corner.php
+template/pc/lists_corner.htm
+template/pc/view_corner.htm

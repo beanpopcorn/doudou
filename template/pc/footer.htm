@@ -1,0 +1,55 @@
+<div class="side">
+    <a onclick="window.scrollTo('0','0')" rel="nofollow" class="side_back" id="side_back" title="返回顶部">
+        <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/back.png">
+    </a>
+    <a class="side_wy" href="{eyou:global name='web_basehost' /}/whisper/" id="" title="微言">
+        <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/weiyan.png">
+    </a>
+    <a class="side_ly" href="{eyou:global name='web_basehost' /}/message/" id="" title="留言">
+        <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/write.png">
+    </a>
+</div>
+
+<footer class="footer">
+    <div class="site_info">
+        <p class="footer_logo"></p>
+        <p class="powered">Powered by <i class="fa fa-vimeo"></i> <span>Doudou</span> with <i class="fa fa-heart"></i> <span>Heidi</span></p>
+        <p class="copyright">© 2021 Doudou <a href="https://beian.miit.gov.cn" target="_blank">{eyou:global name='web_recordnum' /}</a></p>
+    </div>
+</footer>
+
+{eyou:static file="skin/js/clicklove.js" /}
+
+<script>
+    // 弹出、隐藏搜索框
+    $('.fa-search').click(function(){
+        $('.pop_search').addClass('visable')
+    });
+    $('.search_close').click(function(){
+        $('.pop_search').removeClass('visable')
+    });
+
+    // 滑动显示、隐藏导航栏
+    $(function(){ 
+        // 滑动滚动条
+        $(window).scroll(function(){
+            // 滚动条距离顶部的距离 大于 65px时
+            if($(window).scrollTop() >= 65){
+                $(".header").addClass('header_srcoll');
+                $(".header_box").addClass('header_box_scroll');
+                $('.side_back').show()
+            } else{
+                $(".header").removeClass('header_srcoll');
+                $(".header_box").removeClass('header_box_scroll');
+                $('.side_back').hide()
+            }
+        })
+    })
+
+    // 刷新页面回到顶部
+    $('html ,body').animate({ scrollTop:0 },800);
+</script>
+
+<!-- 应用插件标签 start --> 
+{eyou:weapp type='default' /} 
+<!-- 应用插件标签 end -->

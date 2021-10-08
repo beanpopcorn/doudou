@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title>{$eyou.field.seo_title}</title> 
+        <meta name="renderer" content="webkit" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" /> 
+        <meta name="description" content="{$eyou.field.seo_description}" /> 
+        <meta name="keywords" content="{$eyou.field.seo_keywords}" />
+        <link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+		<link media="screen and (min-width:768px)" rel="stylesheet" type="text/css" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/css.css">
+		<link media="screen and (max-width:768px)" rel="stylesheet" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/mobile.css">
+		{eyou:static file="skin/Lib/font-awesome/css/font-awesome.min.css" /}
+    </head>
+
+    <!-- 标签 -->
+    <body>
+		<!--header——开始-->
+		{eyou:include file="header.htm" /}
+		<!--header——结束-->
+
+        <div class="page">
+            <div class="cover_bg">
+                <div class="cover_pic">
+                    <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/label_bg.jpg">
+                </div>
+                <div class="cover_content">
+                    <div class="cover_inner">
+                        <h1>标签与分类</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="post_list cover_inner">
+                <div class="sort">
+                    <p class="sort_title">文章分类</p>
+                    <div class="sort_list">
+                        <span class="sort_box">
+                            <a href="./frontend/">
+                                <div class="sort_wrapper">
+                                    <div class="sort_notebook">
+                                        <div class="sort_cover">
+                                            <div class="sort_skin">前端随笔</div>
+                                        </div>
+                                        <div class="sort_page"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="./backend/">
+                                <div class="sort_wrapper">
+                                    <div class="sort_notebook">
+                                        <div class="sort_cover blue">
+                                            <div class="sort_skin">后端积累</div>
+                                        </div>
+                                        <div class="sort_page ruled"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="./question/">
+                                <div class="sort_wrapper">
+                                    <div class="sort_notebook">
+                                        <div class="sort_cover green">
+                                            <div class="sort_skin">常见问题</div>
+                                        </div>
+                                        <div class="sort_page squared"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="./tools/">
+                                <div class="sort_wrapper">
+                                    <div class="sort_notebook">
+                                        <div class="sort_cover yellow">
+                                            <div class="sort_skin">实用工具</div>
+                                        </div>
+                                        <div class="sort_page dotted"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="tag">
+                    <p class="sort_title green">当前文章标签</p>
+                    <div class="tag_item">
+                        {eyou:tag sort='now' getall='1' typeid='69' row='100'}
+                        <a href="{$field.link}">
+                            <span class="tag_name">🔖 {$field.tag}</span>
+                        </a>
+                        {/eyou:tag}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function() { 
+                var len = $(".tag_item a").length;
+                for(var i = 0;i<len;i++){
+                    var hue = 'rgb(' + (Math.floor((256-199) * Math.random()) + 130) + ','
+                 + (Math.floor((256-199) * Math.random()) + 130) + ','
+                 + (Math.floor((256-199) * Math.random()) + 130) + ')';
+                　　$('.tag_item a:eq('+i+')').css("background-color",hue)
+                }
+            });
+        </script>
+
+		<!--网站公用底部——开始-->
+		{eyou:include file="footer.htm" /}
+		<!--网站公用底部——结束-->
+    </body>
+</html>

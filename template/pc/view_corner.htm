@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+      <title>{$eyou.field.seo_title}</title> 
+      <meta name="renderer" content="webkit" /> 
+      <meta charset="utf-8" /> 
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
+      <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" /> 
+      <meta name="description" content="{$eyou.field.seo_description}" /> 
+      <meta name="keywords" content="{$eyou.field.seo_keywords}" />
+      <link href="{eyou:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+  <link media="screen and (min-width:768px)" rel="stylesheet" type="text/css" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/css.css">
+  <link media="screen and (max-width:768px)" rel="stylesheet" href="{eyou:global name='web_basehost' /}/template/pc/skin/css/mobile.css">
+  {eyou:static file="skin/Lib/font-awesome/css/font-awesome.min.css" /}
+  </head>
+
+  <body>
+  <!--header——开始-->
+  {eyou:include file="header.htm" /}
+  <!--header——结束-->
+
+  <div class="view_bg">
+      <div class="view_pic">
+          <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/post_bg.jpg">
+      </div>
+      <div class="view_content">
+          <div class="view_inner">
+              <h1>{$eyou.field.title}</h1>
+              <div class="view_meta">
+                  <span class="view_avatar">
+                      <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/avatar.jpg">
+                      <span class="view_num">{eyou:arcclick /}次浏览</span>
+                      <time class="view_time">{$eyou.field.add_time|MyDate='Y-m-d',###}</time>
+                  </span>
+                  <div class="view_author">Doudou</div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="view_article">
+
+      <hr>
+
+      <div class="view_article_text">{$eyou.field.article_content}</div>
+      <div class="view_article_tag">
+            {eyou:notempty name='$eyou.field.tags'}
+                {eyou:tag getall='0'}
+                <a href="{$field.link}" {$field.target}><i class="fa fa-tag"></i>{$field.tag}</a>
+                {/eyou:tag}
+            {/eyou:notempty}
+      </div>
+      <div class="view_article_nav">
+          <div class="view_prev">
+              {eyou:prenext get='pre' titlelen='30'}
+                  <a href="{$field.arcurl}">
+                      <div class="view_black"></div>
+                      <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/view_prev.jpg">
+                      <div class="view_left">
+                          <span class="view_prev_cc">上一篇</span>
+                          <span class="view_prev_title">{$field.title}</span>
+                      </div>
+                  </a>
+              {eyou:else /}
+                  <a>
+                      <div class="view_black"></div>
+                      <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/view_prev.jpg">
+                      <div class="view_left">
+                          {eyou:lang name='sys11' /}：{eyou:lang name='sys10' /}
+                      </div>
+                  </a>
+							{/eyou:prenext}
+          </div>
+          <div class="view_next">
+              {eyou:prenext get='next' titlelen='30'}
+                  <a href="{$field.arcurl}">
+                      <div class="view_black"></div>
+                      <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/view_next.jpg">
+                      <div class="view_right">
+                          <span class="view_prev_cc">下一篇</span>
+                          <span class="view_prev_title">{$field.title}</span>
+                      </div>
+                  </a>
+                  {eyou:else /}
+                  <a>
+                      <div class="view_black"></div>
+                      <img src="{eyou:global name='web_basehost' /}/template/pc/skin/images/view_next.jpg">
+                      <div class="view_left">
+                          {eyou:lang name='sys12' /}：{eyou:lang name='sys10' /}
+                      </div>
+                  </a>
+              {/eyou:prenext}
+          </div>
+      </div>
+
+      <hr>
+
+  </div>
+
+  <!--网站公用底部——开始-->
+  {eyou:include file="footer.htm" /}
+  <!--网站公用底部——结束-->
+  </body>
+</html>

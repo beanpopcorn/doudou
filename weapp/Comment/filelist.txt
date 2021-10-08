@@ -1,0 +1,4 @@
+weapp/Comment
+template/plugins/comment
+application/plugins/controller/Comment.php
+application/plugins/logic/CommentLogic.php

@@ -1,0 +1,57 @@
+{eyou:static file="skin/js/jquery.min.js" /}
+
+<header class="header" id="sideHeader">
+    <div class="header_box">
+        <div class="navlist">
+            <ul id="nav">
+                <li>
+                    <a href="{eyou:global name='web_cmsurl' /}" class="web_title">{eyou:global name='web_name' /}</a>
+                </li>
+                <li{eyou:eq name='$Request.param.m' value='Index'} class="current"{/eyou:eq}>
+                    <a href="{eyou:global name='web_cmsurl' /}" title="主页">
+                        <i class="fa fa-home"></i>主页
+                    </a>
+                </li>
+                {eyou:channel type="top" id="field" currentstyle="current"}
+                <li class="{$field.currentstyle}">
+                    <a href="{$field.typeurl}">
+                        <i class="fa {$field.englist_name}"></i>{$field.typename}
+                    </a>
+                    <!-- 二级导航Begin -->
+                    {eyou:notempty name="$field.children"}
+                    <ul>
+                        {eyou:channel name="$field.children" id="field2"}
+                        <li>
+                            <a href="{$field2.typeurl}"><i class="fa {$field2.englist_name}"></i>{$field2.typename}</a>
+                        </li>
+                        {/eyou:channel}   
+                    </ul>
+                    {/eyou:notempty}
+                    <!-- 二级导航End -->
+                </li>
+                {/eyou:channel}
+            </ul>
+        </div>
+
+        <div class="search_box">
+            <i class="fa fa-search"></i>
+        </div>
+    </div>
+</header>
+
+<div class="pop_search">
+    <div class="search_close"></div>
+    <div class="search_container">
+        <div class="search_tips">输入后按回车搜索 ...</div>
+        <div class="search_form">
+            {eyou:searchform type='default'}
+            <form method="get" action="{$field.action}" onsubmit="return searchForm();" autocomplete="off">
+                <i></i>
+                <input type="text" name="keywords" id="keywords" value="Search" onFocus="this.value=''" onBlur="if(!value){value=defaultValue}"/>
+                {$field.hidden}
+            </form>
+            {/eyou:searchform}
+        </div>
+    </div>
+</div>
+

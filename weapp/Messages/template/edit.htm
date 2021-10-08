@@ -1,0 +1,106 @@
+{include file="header.htm" /}
+<style>
+.ncap-form-default dl.row {position: unset;}
+.comboTreeDropDownContainer {width: 388px !important;}
+.multiplesFilter {border: 0 !important;border-bottom: solid 1px #eee !important;outline: none !important; }
+.comboTreeDropDownContainer {box-shadow: 0 0 8px rgba(0,0,0,0.2);border-radius: 4px!important;background-color: #FFF !important;border: solid 1px #eee !important;}
+.multiplesFilter{height: 30px !important;}
+</style>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    {include file="bar.htm" /}
+    <form class="form-horizontal" id="post_form" action="{:weapp_url('Messages/Messages/edit')}" method="post">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>通知标题</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" value="{$row.title|default=''}" id="title" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="users_id"><em>*</em>通知某个会员</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="users_id" placeholder="" value="{$row.users_id|default=''}" id="justAnInputBox" class="input-txt" autocomplete="off" disabled="true">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="remark"><em>*</em>通知内容</label>
+                </dt>
+                <dd class="opt">
+                    <textarea rows="5" cols="80" id="remark" name="remark" style="height:80px;" placeholder="通知会员内容">{$row.remark|default=''}</textarea>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <div class="bot">
+                <input type="hidden" name="id" value="{$row.id}">
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+            </div>
+        </div>
+    </form>
+</div>
+<link href="__WEAPP_TEMPLATE__/skin/css/Messages.css?v={$weappInfo.version|default='v1.0.0'}" rel="stylesheet" type="text/css">
+<script src="__WEAPP_TEMPLATE__/skin/js/icontains.js?v={$weappInfo.version|default='v1.0.0'}"></script>
+<script src="__WEAPP_TEMPLATE__/skin/js/comboTreePlugin.js?v={$weappInfo.version|default='v1.0.0'}"></script>
+<script type="text/javascript">
+     var SampleJSONData = [
+	    {empty name="listname"}
+        {
+            id: 0,
+            title: '没有符合条件的记录'
+        }
+		{else/}
+		    {volist name="listname" id="vo"}
+		        {
+                    id: {$key},
+                    title: '{$vo.username}'
+                },
+		    {/volist}
+        {/empty}
+    ];
+    var comboTree1, comboTree2;
+    jQuery(document).ready(function($) {
+		comboTree1 = $('#justAnInputBox').comboTree({
+			source : SampleJSONData,
+			isMultiple: true
+		});
+    });
+    // 判断输入框是否为空
+    function checkForm(){
+        if($('input[name=title]').val() == ''){
+            showErrorMsg('网站名称不能为空！');
+            $('input[name=title]').focus();
+            return false;
+        }
+		if($('textarea[name=remark]').val() == ''){
+            showErrorMsg('通知内容不能为空！');
+            $('textarea[name=remark]').focus();
+            return false;
+        }
+        
+        layer_loading('正在处理');
+        $('#post_form').submit();
+    }
+    $(function(){
+        $('input[name=typeid]').click(function(){
+            var val = $(this).val();
+            if (val == 2) {
+                $('.typeid2').show();
+            } else {
+                $('.typeid2').hide();
+            }
+        });
+    });
+</script>
+{include file="footer.htm" /}

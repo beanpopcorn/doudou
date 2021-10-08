@@ -1,0 +1,5 @@
+application/common/model/Note.php
+application/home/controller/Note.php
+application/home/model/Note.php
+template/pc/lists_note.htm
+template/pc/view_note.htm

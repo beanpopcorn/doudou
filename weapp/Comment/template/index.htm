@@ -1,0 +1,314 @@
+{include file="header.htm" /}
+<style>
+    .w01{
+        width: 5%!important;
+    }
+    .w02{
+        width: 8%!important;
+    }
+    .w03{
+        width: 12%!important;
+    }
+    .w04{
+        width: 35%!important;
+    }
+    .search-desc{
+        font-size: 12px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    .clear{
+        clear: both;
+    }
+    .v-nav-tabs li{
+        float: left;
+        margin-right: 10px;
+    }
+    .v-nav-tabs li a{
+        border: 1px solid #ddd;
+        cursor: pointer;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        color: #333;
+        text-align: center;
+        width: 82px;
+        height: 40px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: column;
+        -moz-flex-flow: column;
+        -ms-flex-flow: column;
+        flex-flow: column;
+        padding-top: 5px;
+        font-size: 12px;
+    }
+    .v-nav-tabs-active{
+        border: 1px solid #2589ff!important;
+        background-color: #2589ff!important;
+        color: #fff!important;
+    }
+</style>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    {include file="bar.htm" /}
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>评论列表</h3>
+                <h5>(共{$pageObj->totalRows}条数据)</h5>
+            </div>
+            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:weapp_url('Comment/Comment/index')}" method="get" onsubmit="layer_loading('正在处理');">
+                {$searchform.hidden|default=''}
+                <div class="sDiv">
+                    <span class="search-desc">评论内容</span>
+                    <div class="sDiv2">
+                        <input type="text" value="{$keywords}" size="30" name="keywords" class="qsbox" placeholder="搜索相关数据...">
+                    </div>
+                    <span class="search-desc">评论文章</span>
+                    <div class="sDiv2">
+                        <input type="text" value="{$title}" size="30" name="title" class="qsbox" placeholder="请输入评论文章">
+                    </div>
+                    <span class="search-desc">评论者</span>
+                    <div class="sDiv2">
+                        <input type="text" value="{$username}" size="30" name="username" class="qsbox" placeholder="请输入评论者">
+                    </div>
+                    <div class="sDiv2">
+                        <input type="submit" class="btn" value="搜索">
+                    </div>
+                    <div class="sDiv2">
+                        <input type="button" class="btn" value="重置" onClick="window.location.href='{:weapp_url('Comment/Comment/index')}';">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <ul class="v-nav-tabs">
+            <li><a {if $state=='-1'} class="v-nav-tabs-active" {/if} href="{:weapp_url('Comment/Comment/index')}&state=-1">全部<br/><span>({$count_data.count1})</span></a></li>
+            <li><a {if $state=='0'} class="v-nav-tabs-active" {/if} href="{:weapp_url('Comment/Comment/index')}&state=0">待审核<br/><span>({$count_data.count2})</span></a></li>
+            <li><a {if $state=='1'} class="v-nav-tabs-active" {/if} href="{:weapp_url('Comment/Comment/index')}&state=1">已审核<br/><span>({$count_data.count3})</span></a></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="hDiv" style="margin-top: 10px">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th class="sign w01" axis="col0">
+                            <div class="tc">选择</div>
+                        </th>
+                        <th abbr="article_show" axis="col5" class="w02">
+                            <div class="tc">ID</div>
+                        </th>
+                        <th abbr="ac_id" axis="col4" class="w04">
+                            <div class="">评论内容</div>
+                        </th>
+                        <th abbr="article_show" axis="col5" class="w03">
+                            <div class="tc">评论文章</div>
+                        </th>
+                        <th abbr="article_time" axis="col6" class="w02">
+                            <div class="tc">更新时间</div>
+                        </th>
+                        <th abbr="article_time" axis="col6" class="w02">
+                            <div class="tc">评论者</div>
+                        </th>
+                        <th abbr="article_title" axis="col3" class="w02">
+                            <div class="tc">已审核</div>
+                        </th>
+                        <th abbr="article_title" axis="col3" class="w01">
+                            <div class="tc">允许评论</div>
+                        </th>
+                        <th axis="col1" class="w01">
+                            <div class="tc">操作</div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="bDiv" style="height: auto;">
+            <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+                <table style="width: 100%">
+                    <tbody>
+                    {empty name="list"}
+                        <tr>
+                            <td class="no-data" align="center" axis="col0" colspan="50">
+                                <i class="fa fa-exclamation-circle"></i>没有符合条件的记录
+                            </td>
+                        </tr>
+                    {else/}
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td class="w01">
+                                <div class="tc"><input type="checkbox" name="ids[]" value="{$vo.comment_id}"></div>
+                            </td>
+                            <td class="w02">
+                                <div class="tc">
+                                    {$vo.comment_id}
+                                </div>
+                            </td>
+                            <td class="w04">
+                                <div style="">
+                                    <a href="{$vo.arcurl}" target="_blank">
+                                        {$vo.content}
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="w03">
+                                <div class="tc">
+                                    {$vo.article}
+                                </div>
+                            </td>
+                            <td class="w02">
+                                <div class="tc">
+                                    {$vo.update_time|MyDate='Y-m-d H:i:s',###}
+                                </div>
+                            </td>
+                            <td class="w02">
+                                <div class="tc">
+                                    {$vo.nickname|default='游客'}
+                                </div>
+                            </td>
+                            <td class="w02">
+                                <div class="tc">
+                                    {eq name="$vo['is_review']" value='1'}
+                                    <span class="yes" onClick="changeTableVal('weapp_comment','comment_id','{$vo.comment_id}','is_review',this);"><i class="fa fa-check-circle"></i>是</span>
+                                    {else /}
+                                    <span class="no" onClick="changeTableVal('weapp_comment','comment_id','{$vo.comment_id}','is_review',this);"><i class="fa fa-ban"></i>否</span>
+                                    {/eq}
+                                </div>
+                            </td>
+                            <td class="w01">
+                                <div class="tc">
+                                    {eq name="$vo['user_comment']" value='1'}
+                                    <span class="yes" onClick="changeComment('{$vo.users_id}');"><i class="fa fa-check-circle"></i>是</span>
+                                    {else /}
+                                    <span class="no" onClick="changeComment('{$vo.users_id}');"><i class="fa fa-ban"></i>否</span>
+                                    {/eq}
+                                </div>
+                            </td>
+                            <td class="w01">
+                                <div class="tc">
+                                    <a class="btn red"  href="javascript:void(0)" data-url="{:weapp_url('Comment/Comment/del')}" data-id="{$vo.comment_id}" onClick="delfun(this);"><i class="fa fa-trash-o"></i>删除</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {/volist}
+                    {/empty}
+                    </tbody>
+                </table>
+            </div>
+            <div class="iDiv" style="display: none;"></div>
+        </div>
+        <div class="tDiv">
+            <div class="tDiv2">
+                <div class="fbutton checkboxall">
+                    <input type="checkbox" onclick="javascript:$('input[name*=ids]').prop('checked',this.checked);">
+                </div>
+                <div class="fbutton">
+                    <a onclick="batch_del(this, 'ids');" data-url="{:weapp_url('Comment/Comment/del')}">
+                        <div class="add" title="批量删除">
+                            <span><i class="fa fa-close"></i>批量删除</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="fbutton">
+                    <a onclick="batch_review(this, 'ids');" data-url="{:weapp_url('Comment/Comment/review')}">
+                        <div class="add" title="批量审核">
+                            <span><i class="fa fa-compass"></i>批量审核</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <!--分页位置-->
+        {$pageStr}
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            $(this).toggleClass('trSelected');
+        });
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+    });
+
+    /**
+     * 批量审核
+     */
+    function batch_review(obj, name) {
+        var a = [];
+        $('input[name^='+name+']').each(function(i,o){
+            if($(o).is(':checked')){
+                a.push($(o).val());
+            }
+        })
+        if(a.length == 0){
+            layer.alert('请至少选择一项', {icon: 2});
+            return false;
+        }
+
+        layer.confirm('确认批量审核？', {
+            btn: ['确定', '取消'],
+            title: false
+        }, function () {
+            layer_loading('正在处理');
+            $.ajax({
+                type: "POST",
+                url: $(obj).attr('data-url'),
+                data: {ids:a},
+                dataType: 'json',
+                success: function (data) {
+                    layer.closeAll();
+                    if(parseInt(data.code) == 1){
+                        layer.msg(data.msg, {icon: 1});
+                        window.location.reload();
+                    }else{
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                },
+                error:function(){
+                    layer.closeAll();
+                    layer.alert('未知错误，无法继续~', {icon: 2});
+                }
+            });
+        }, function (index) {
+            layer.closeAll(index);
+        });
+    }
+
+    /**
+     * 允许评论
+     */
+    function changeComment(users_id) {
+        $.ajax({
+            type:'POST',
+            url: "{:weapp_url('Comment/Comment/changeComment')}",
+            data: {
+                users_id: users_id
+            },
+            dataType: 'json',
+            success: function(data){
+                if(parseInt(data.code) == 1){
+                    layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    layer.msg(data.msg, {icon: 2, time: 1000}, function(){
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+    }
+</script>
+{include file="footer.htm" /}

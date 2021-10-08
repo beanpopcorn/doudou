@@ -1,0 +1,4 @@
+application/user/controller/Messages.php
+template/pc/users/messages_index.htm
+template/mobile/users/messages_index.htm
+weapp/Messages

@@ -1,0 +1,5 @@
+application/common/model/Hot.php
+application/home/controller/Hot.php
+application/home/model/Hot.php
+template/pc/lists_hot.htm
+template/pc/view_hot.htm
